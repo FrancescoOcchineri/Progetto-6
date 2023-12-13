@@ -1,1 +1,7 @@
 @import '_colors';
+
+.customBox {
+    border-radius: 20px;
+    transform: perspective(1px) translateZ(0);
+    transition: transform 0.5s;
+}

@@ -146,10 +146,4 @@ document.addEventListener("DOMContentLoaded", () => {
         const urlRegex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
         return urlRegex.test(url);
     }
-    let inputUrl = document.querySelector('#urlInput').value;
-    if (isValidUrl(inputUrl)) {
-        console.log('L\'URL è valido!');
-    } else {
-        console.log('L\'URL non è valido!');
-    }
 })

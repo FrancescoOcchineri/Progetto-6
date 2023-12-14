@@ -26,14 +26,16 @@ function getData(url) {
                     <p class="card-text description fw-bold badge rounded-pill text-bg-dark">${json[i].description}</p>
                     <p class="card-text brand">${json[i].brand}</p>
                     <p class="card-text price mt-auto">${json[i].price}€</p>
-                    <button type="button" class="btn btn-warning"><i
-                    class="bi bi-pencil-square"></i></button>
-            <button type="button" class="btn btn-danger mx-2 elimina"><i
-                    class="bi bi-trash-fill"></i></button>
-                </div>
+                    <button type="button" class="btn btn-primary details"><i class="bi bi-info-circle-fill"></i></button>
             </div>
         `;
                 grid.appendChild(card);
+                let button = document.querySelectorAll('.details')
+                button.forEach(d => {
+                d.addEventListener('click', () =>{
+                    window.location = 'details.html'
+                })
+                })
             }
         })
 }

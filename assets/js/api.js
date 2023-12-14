@@ -12,9 +12,17 @@ document.addEventListener("DOMContentLoaded", () => {
             .then(response => response.json())
             .then(json => {
                 console.log(json);
-                json.forEach(p => {
-                    console.log(p._id)
-                })
+                json.forEach(product => {
+                    let productInfo = document.createElement('div');
+                    let title = document.createElement('h4');
+                    title.className = "text-danger";
+                    productInfo.classList.add('product-info');
+                    productInfo.innerHTML = `
+                    <li class="text-white mt-2">${product.name} --  Category: ${product.description} --  Brand: ${product.brand} --  Price: ${product.price}€ --  ID: ${product._id}</li>
+                    `;
+                    let info = document.querySelector('.productInfo')
+                    info.appendChild(productInfo);
+                });
             })
             .catch(error => console.error('Errore durante la richiesta:', error));
     }
@@ -36,6 +44,7 @@ document.addEventListener("DOMContentLoaded", () => {
             .catch(err => console.log(err))
     }
 
+
     function deleteProduct() {
         let productId = document.querySelector('#product-id-input').value;
         fetch(`https://striveschool-api.herokuapp.com/api/product/${productId}`, {
@@ -46,14 +55,37 @@ document.addEventListener("DOMContentLoaded", () => {
             }
 
         })
-            .then(response => {
-                if (response.ok) {
-                    fetchProducts();
-                } else {
-                    console.error('Errore durante la richiesta DELETE:', response.statusText);
-                }
-            })
             .catch(error => console.error('Errore durante la richiesta DELETE:', error));
+    }
+
+    function modifyProduct() {
+        let productId = document.querySelector('#product-id-input').value;
+        let name = document.querySelector('#name').value;
+        let description = document.querySelector('#category').value;
+        let brand = document.querySelector('.form-select').value;
+        let img = document.querySelector('#img').value;
+        let price = document.querySelector('#price').value;
+        let data = {
+            name: name,
+            description: description,
+            brand: brand,
+            imageUrl: img,
+            price: price
+        };
+
+        fetch(`https://striveschool-api.herokuapp.com/api/product/${productId}`, {
+            method: 'PUT',
+            headers: {
+                Authorization: "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJfaWQiOiI2NTc4YWE0MDI2NzYxNDAwMTgzYzNiZDciLCJpYXQiOjE3MDI0MDY3MjUsImV4cCI6MTcwMzYxNjMyNX0.SaYsGxqmoTxMxi02CtqyfzZMi3PNHMeQG3ZlsBOHhn0",
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(data => {
+                console.log('Dati modificati:', data);
+            })
+            .catch(error => console.error('Errore durante la richiesta PUT:', error));
     }
 
     button.addEventListener('click', () => {
@@ -70,12 +102,6 @@ document.addEventListener("DOMContentLoaded", () => {
             price: price
         }
         createData(product, url)
-        let inputControl = document.querySelector('.controllo')
-        if ((inputControl.value == "") || (inputControl == "undefined")) {
-            alert("Il campo Nome è obbligatorio.");
-            document.modulo.nome.focus();
-            return false;
-        }
     })
     let back = document.querySelector('.back')
     back.addEventListener('click', () => {
@@ -89,5 +115,41 @@ document.addEventListener("DOMContentLoaded", () => {
     cancella.addEventListener('click', () => {
         deleteProduct();
     })
-
+    let modify = document.querySelector('.modify')
+    modify.addEventListener('click', () => {
+        modify.classList.add('d-none')
+        let edit = document.querySelector('.edit')
+        edit.classList.remove('d-none')
+        let cancella = document.querySelector('.cancella')
+        cancella.classList.remove('d-none')
+        let invia = document.querySelector('.invia')
+        invia.classList.add('d-none')
+        let gameId = document.querySelector('.padd')
+        gameId.classList.remove('d-none')
+        alert('For DELETE using only "Game ID"')
+        let backto = document.querySelector('.return')
+        backto.classList.remove('d-none')
+        backto.addEventListener('click', () => {
+            modify.classList.remove('d-none')
+            edit.classList.add('d-none')
+            cancella.classList.add('d-none')
+            invia.classList.remove('d-none')
+            gameId.classList.add('d-none')
+            backto.classList.add('d-none')
+        })
+    })
+    let edit = document.querySelector('.edit')
+    edit.addEventListener('click', () => {
+        modifyProduct()
+    })
+    function isValidUrl(url) {
+        const urlRegex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
+        return urlRegex.test(url);
+    }
+    let inputUrl = document.querySelector('#urlInput').value;
+    if (isValidUrl(inputUrl)) {
+        console.log('L\'URL è valido!');
+    } else {
+        console.log('L\'URL non è valido!');
+    }
 })

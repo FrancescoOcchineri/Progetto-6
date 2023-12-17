@@ -33,26 +33,23 @@
     <main>
         <section>
             <div class="container d-flex align-items-center justify-content-center">
-                <form class="row row-cols-1 g-3 needs-validation bg-dark p-5 mt-5 shadow-sm customBox" novalidate>
+                <form class="row row-cols-1 g-3 needs-validation bg-dark p-5 mt-5 shadow-sm customBox was-validated"
+                    novalidate>
                     <h1 class="text-white mb-4 fw-bold">Your product:</h1>
                     <div class="col padd d-none">
                         <label for="product" class="form-label mb-3">Game Id:</label>
                         <input type="text" class="form-control controllo mb-2" id="product-id-input"
                             placeholder="Enter Game ID" required>
-                        <div class="valid-feedback">
-                        </div>
                     </div>
                     <div class="col padd">
                         <label for="product" class="form-label mb-3">Game Name:</label>
                         <input type="text" class="form-control controllo mb-2" id="name" placeholder="Diablo IV"
-                            required minlength="4">
-                        <div class="valid-feedback">
-                        </div>
+                            required minlength="2">
                     </div>
                     <div class="col padd">
                         <label for="product" class="form-label mb-3">Game Category:</label>
                         <input type="text" class="form-control controllo mb-2" id="category"
-                            placeholder="Open-world RPG" required>
+                            placeholder="Open-world RPG" required minlength="3" required>
                     </div>
                     <div class="col padd">
                         <label for="product" class="form-label mb-3">Game Brand:</label>
@@ -65,25 +62,28 @@
                     </select>
                     <div class="col padd">
                         <label for="product" class="form-label mt-3 mb-3">Game ImageURL:</label>
-                        <input type="text" class="form-control controllo" id="img" placeholder="https://example.com.jpg"
-                            required>
+                        <input type="url" class="form-control controllo" id="img" placeholder="https://example.com.jpg"
+                            pattern="https?://.+" required>
                     </div>
                     <div class="col padd mt-4">
                         <label for="exampleNumber" class="form-label">Game price:</label>
-                        <input type="number" class="form-control mt-2 controllo" id="price" placeholder="0.00€">
+                        <input type="number" class="form-control mt-2 controllo" id="price" placeholder="0.00€" min="1"
+                            step="any"
+                            pattern="/(http(s)?:\/\/.)?(www\.)?[-a-zA-Z0-9@:%._\+~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_\+.~#?&//=]*)/g"
+                            required>
                     </div>
                     <div class="d-flex flex-row justify-content-end mt-3">
-                        <button type="button" class="btn btn-primary mt-3 px-3 invia">Add</button>
+                        <button type="submit" class="btn btn-primary mt-3 px-3 invia">Add</button>
                         <button type="button" class="btn btn-warning mt-3 d-none px-3 edit">Edit</button>
                         <button type="button" class="btn btn-danger mt-3 px-3 d-none mx-3 cancella">Delete</button>
                         <div class="ms-auto">
                             <button type="button" class="btn btn-secondary mt-3 px-3 mx-4 modify">Modify
                                 Products</button>
-                            <button type="reset" class="btn btn-outline-danger mt-3 px-3 fw-bold">Reset</button>
+                            <button type="reset" class="btn btn-outline-danger mt-3 px-3 fw-bold reset">Reset</button>
                         </div>
                     </div>
                     <div class="d-flex flex-row justify-content-end mt-3 border-bottom border-danger">
-                        <button type="button" class="btn btn-secondary d-none return mx-3">Return to
+                        <button type="button" class="btn btn-secondary d-none return mx-3 mt-3 mb-4">Return to
                             edit</button>
                         <button type="button" class="btn btn-light mt-3 px-3 back mb-4">Back to Home</button>
                     </div>

@@ -44,7 +44,6 @@ document.addEventListener("DOMContentLoaded", () => {
             .catch(err => console.log(err))
     }
 
-
     function deleteProduct() {
         let productId = document.querySelector('#product-id-input').value;
         fetch(`https://striveschool-api.herokuapp.com/api/product/${productId}`, {
@@ -89,6 +88,7 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     button.addEventListener('click', () => {
+        event.preventDefault()
         let name = document.querySelector('#name').value
         let description = document.querySelector('#category').value
         let brand = document.querySelector('.form-select').value
@@ -113,7 +113,10 @@ document.addEventListener("DOMContentLoaded", () => {
     })
     let cancella = document.querySelector('.cancella');
     cancella.addEventListener('click', () => {
-        deleteProduct();
+        let conferma = confirm('Are you sure to delete this product?')
+        if (conferma) {
+            deleteProduct();
+        } else { }
     })
     let modify = document.querySelector('.modify')
     modify.addEventListener('click', () => {
@@ -126,7 +129,7 @@ document.addEventListener("DOMContentLoaded", () => {
         invia.classList.add('d-none')
         let gameId = document.querySelector('.padd')
         gameId.classList.remove('d-none')
-        alert('For DELETE using only "Game ID"')
+        alert('For DELETE using only "Game ID in the "Product in stock" section')
         let backto = document.querySelector('.return')
         backto.classList.remove('d-none')
         backto.addEventListener('click', () => {
@@ -142,8 +145,13 @@ document.addEventListener("DOMContentLoaded", () => {
     edit.addEventListener('click', () => {
         modifyProduct()
     })
-    function isValidUrl(url) {
-        const urlRegex = /^(https?|ftp):\/\/[^\s/$.?#].[^\s]*$/i;
-        return urlRegex.test(url);
-    }
+    let reset = document.querySelector('.reset')
+    reset.addEventListener('click', () => {
+        let conferma = confirm('Are you sure to reset all form?')
+        if (conferma) {
+            reset.setAttribute('type', 'reset')
+        } else {
+            reset.setAttribute('type', 'button')
+        }
+    })
 })
